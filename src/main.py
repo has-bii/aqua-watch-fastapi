@@ -1,9 +1,14 @@
 import os
 from dotenv import load_dotenv
 import datetime
+<<<<<<< HEAD
 from src.utils.predict import init_predict
 from src.utils.predict_v2 import predict_v2
 from supabase import create_client, Client
+=======
+from src.utils.predict import predict
+from supabase import Client, create_client
+>>>>>>> 4543e2a2de93c874840eaca705c8321b44dfaaa8
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -32,7 +37,7 @@ def read_root():
     return {"Hello": url}
 
 @app.get("/predict")
-def get_auth(env_id: str):
+def get_prediction(env_id: str):
     requested_date = datetime.datetime.now()
     requested_date_end = requested_date - datetime.timedelta(days=30)
     try:
@@ -45,9 +50,9 @@ def get_auth(env_id: str):
         if response.count == 0:
             return {"message": "Data is not sufficient"}
         
-        predicted = init_predict(response.data)
+        predicted = predict(response.data)
         
-        return {"data": predicted, "count": response.count}
+        return {"data": predicted, "trained": response.count}
         
     except Exception as error:
         print(error)
