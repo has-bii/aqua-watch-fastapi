@@ -5,16 +5,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from datetime import datetime, timedelta
 
-<<<<<<< HEAD
-def init_predict(csv_string: str):
-    """
-    Predict temperatures for the next 24 hours using a CSV string.
-=======
 def predict(csv_data):
     # Convert the CSV string into a DataFrame
     from io import StringIO
     data = pd.read_csv(StringIO(csv_data))
->>>>>>> 4543e2a2de93c874840eaca705c8321b44dfaaa8
     
     # Convert 'created_at' to datetime and then to ordinal form for regression
     data['created_at'] = pd.to_datetime(data['created_at'])

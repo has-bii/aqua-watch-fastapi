@@ -1,14 +1,9 @@
 import os
 from dotenv import load_dotenv
 import datetime
-<<<<<<< HEAD
-from src.utils.predict import init_predict
-from src.utils.predict_v2 import predict_v2
-from supabase import create_client, Client
-=======
 from src.utils.predict import predict
+from src.utils.predict_v2 import predict_v2
 from supabase import Client, create_client
->>>>>>> 4543e2a2de93c874840eaca705c8321b44dfaaa8
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
