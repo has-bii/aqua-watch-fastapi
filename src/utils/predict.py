@@ -6,7 +6,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 from io import StringIO
 
-def init_predict(csv_string: str, threshold: float = None):
+def init_predict(csv_string: str):
     """
     Predict temperatures for the next 24 hours using a CSV string.
     
