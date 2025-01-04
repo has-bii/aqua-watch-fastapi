@@ -92,7 +92,6 @@ def predict_v2(csv_string: str):
         average.append({"time": x, "avg_temp": round(df[df.timestamp.dt.hour == x]['temperature'].mean(), 2)})
 
     last_hour = future_timestamps[0].hour
-    print("Last hour: ", last_hour)
 
     # Create JSON structure
     predictions_json = {
