@@ -26,10 +26,6 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-@app.get("/")
-def read_root():
-    return {"Hello": url}
-
 @app.get("/predict")
 def get_auth(env_id: str):
     requested_date = datetime.datetime.now()
