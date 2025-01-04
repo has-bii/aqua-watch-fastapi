@@ -7,7 +7,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-def predict_v2(csv_string: str):
+def predict(csv_string: str):
     """
     Predict future temperatures using a Random Forest model. If the model exists, load it; otherwise, train a new one.
     

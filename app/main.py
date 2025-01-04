@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
 import datetime
-from src.utils.predict import predict
-from src.utils.predict_v2 import predict_v2
+from app.utils.predict import predict
 from supabase import Client, create_client
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,30 +31,6 @@ def read_root():
     return {"Hello": url}
 
 @app.get("/predict")
-def get_prediction(env_id: str):
-    requested_date = datetime.datetime.now()
-    requested_date_end = requested_date - datetime.timedelta(days=30)
-    try:
-        # Check if exists
-        supabase.table("environment").select("*").eq("id", env_id).single().execute()
-        
-        # Supabase query
-        response = supabase.table("dataset").select("*", count="exact").eq("env_id", env_id).gte("created_at", requested_date_end).csv().execute()
-        
-        if response.count == 0:
-            return {"message": "Data is not sufficient"}
-        
-        predicted = predict(response.data)
-        
-        return {"data": predicted, "trained": response.count}
-        
-    except Exception as error:
-        print(error)
-        raise HTTPException(status_code=404, detail="Internal server error")
-    except:
-        return {"message": "Internal server error2"}
-
-@app.get("/predict/v2")
 def get_auth(env_id: str):
     requested_date = datetime.datetime.now()
     requested_date_end = requested_date - datetime.timedelta(days=30)
@@ -69,7 +44,7 @@ def get_auth(env_id: str):
         if response.count == 0:
             return {"message": "Data is not sufficient"}
         
-        predicted = predict_v2(response.data)
+        predicted = predict(response.data)
         
         return {"data": predicted, "count": response.count}
         

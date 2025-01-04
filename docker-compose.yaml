@@ -1,0 +1,8 @@
+services:
+  app:
+    restart: "unless-stopped"
+    build: .
+    ports:
+      - "8000:80"
+    env_file:
+      - .env
