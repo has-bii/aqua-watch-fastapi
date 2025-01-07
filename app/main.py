@@ -29,20 +29,20 @@ app.add_middleware(
 @app.get("/predict")
 def get_auth(env_id: str):
     requested_date = datetime.datetime.now()
-    requested_date_end = requested_date - datetime.timedelta(days=30)
+    requested_date_end = requested_date - datetime.timedelta(days=7)
     try:
         # Check if exists
         supabase.table("environment").select("*").eq("id", env_id).single().execute()
         
         # Supabase query
-        response = supabase.table("dataset").select("*", count="exact").eq("env_id", env_id).gte("created_at", requested_date_end).order('created_at', desc=True).limit(2000).csv().execute()
+        response = supabase.table("dataset").select("*", count="exact").eq("env_id", env_id).gte("created_at", requested_date_end).order('id', desc=True).csv().execute()
         
-        if response.count == 0:
+        if response.count < 1440:
             return {"message": "Data is not sufficient"}
         
         predicted = predict(response.data)
         
-        return {"data": predicted, "count": response.count}
+        return {"data": predicted, 'count': response.count}
         
     except Exception as error:
         print(error)
